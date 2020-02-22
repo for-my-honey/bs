@@ -25,6 +25,7 @@ router.get('/user', function(req, res, next) {
     // res.send('respond with a resource');
     // console.log(result);
 });
+
 router.get('/user/updateStatus', function(req, res, next) {
   let response = {
     "usernum": req.query.usernum,
@@ -44,4 +45,33 @@ router.get('/user/updateStatus', function(req, res, next) {
     // console.log(result);
 });
 
+router.get('/user/select', (req, res) => {
+  var value = req.query.usernum;
+  connection.query(`SELECT * FROM userinfo where usernum like '%${value}%'`, (err, vals) => {
+    if (err) {
+      console.log('[login ERROR] - ', err.message);
+      return;
+    }
+    let rows = JSON.stringify(vals);
+    res.send(rows)
+  })
+})
+
+router.get('/user/deleat', function(req, res, next) {
+  let response = {
+    "id": req.query.id,
+  };
+  let deleat = "DELETE FROM userinfo where id= '" + response.id + "'";
+  // var updateStatus = "select username,password from userlogin where username = '" + response.username + "' and password = '" + response.password + "'";
+  // let modSqlParams = ['Tom', 'tom@qq.com', 7];
+  connection.query(deleat, function(err, result) {
+      if (err) {
+        console.log('[login ERROR] - ', err.message);
+        return;
+      }
+      res.end(JSON.stringify(result));
+    })
+    // res.send('respond with a resource');
+    // console.log(result);
+});
 module.exports = router;
