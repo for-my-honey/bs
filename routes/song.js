@@ -52,6 +52,20 @@ router.get('/song/deleat', function(req, res, next) {
     // res.send('respond with a resource');
     // console.log(result);
 });
+router.get('/song/songList', function(req, res, next) {
+  let listquery = "select id,songname,songdesc,imgurl from songinfo";
+  // var updateStatus = "select username,password from userlogin where username = '" + response.username + "' and password = '" + response.password + "'";
+  // let modSqlParams = ['Tom', 'tom@qq.com', 7];
+  connection.query(listquery, function(err, result) {
+      if (err) {
+        console.log('[login ERROR] - ', err.message);
+        return;
+      }
+      res.end(JSON.stringify(result));
+    })
+    // res.send('respond with a resource');
+    // console.log(result);
+});
 
 router.post('/song/updateSong', function(req, res, next) {
   let response = {
@@ -75,6 +89,36 @@ router.post('/song/updateSong', function(req, res, next) {
   // var updateStatus = "select username,password from userlogin where username = '" + response.username + "' and password = '" + response.password + "'";
   // let modSqlParams = ['Tom', 'tom@qq.com', 7];
   connection.query(updateSong, function(err, result) {
+      if (err) {
+        console.log('[login ERROR] - ', err.message);
+        return;
+      }
+      res.end(JSON.stringify(result));
+    })
+    // res.send('respond with a resource');
+    // console.log(result);
+});
+router.post('/song/updatelist', function(req, res, next) {
+  let response = {
+    "id": req.body.id,
+    "songdesc": req.body.songdesc,
+    "upload": req.body.upload,
+  };
+  let updatelist;
+  if (response.upload == 'null') {
+    updatelist = "update songinfo set songdesc = '" + response.songdesc +
+      "',imgurl = " + null +
+      " where id = '" + response.id + "'";
+  } else {
+    updatelist = "update songinfo set songdesc = '" + response.songdesc +
+      "',imgurl = '" + response.upload +
+      "' where id = '" + response.id + "'";
+  }
+  console.log(response);
+
+  // var updateStatus = "select username,password from userlogin where username = '" + response.username + "' and password = '" + response.password + "'";
+  // let modSqlParams = ['Tom', 'tom@qq.com', 7];
+  connection.query(updatelist, function(err, result) {
       if (err) {
         console.log('[login ERROR] - ', err.message);
         return;

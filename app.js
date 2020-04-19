@@ -7,7 +7,11 @@ var logger = require('morgan');
 var loginRouter = require('./routes/login');
 var usersRouter = require('./routes/users');
 var songRouter = require('./routes/song');
+var singerRouter = require('./routes/singer');
 var uploadRouter = require('./routes/upload');
+var uploadimgRouter = require('./routes/uploadimg');
+var downloadRouter = require('./routes/download');
+var dashboardRouter = require('./routes/dashboard');
 
 var app = express();
 
@@ -32,11 +36,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.static(__dirname));
 app.use('/', loginRouter);
 app.use('/', usersRouter);
 app.use('/', songRouter);
 app.use('/', uploadRouter);
+app.use('/', uploadimgRouter);
+app.use('/', singerRouter);
+app.use('/', downloadRouter);
+app.use('/', dashboardRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
