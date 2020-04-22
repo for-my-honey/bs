@@ -35,6 +35,17 @@ router.get('/singer/select', (req, res) => {
     res.send(rows)
   })
 })
+router.get('/singer/selectArea', (req, res) => {
+  var value = req.query.singerarea;
+  connection.query(`SELECT * FROM singerinfo where singerarea = '${value}'`, (err, vals) => {
+    if (err) {
+      console.log('[login ERROR] - ', err.message);
+      return;
+    }
+    let rows = JSON.stringify(vals);
+    res.send(rows)
+  })
+})
 router.get('/singer/deleat', function(req, res, next) {
   let response = {
     "id": req.query.id,
