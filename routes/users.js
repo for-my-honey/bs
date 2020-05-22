@@ -31,18 +31,15 @@ router.get('/user/updateStatus', function(req, res, next) {
     "usernum": req.query.usernum,
     "TF": req.query.TF,
   };
-  let updateStatus = "update userinfo set TF = '" + response.TF + "' where usernum = '" + response.usernum + "'";
-  // var updateStatus = "select username,password from userlogin where username = '" + response.username + "' and password = '" + response.password + "'";
-  // let modSqlParams = ['Tom', 'tom@qq.com', 7];
+  let updateStatus = "update userinfo set TF = '" + response.TF +
+    "' where usernum = '" + response.usernum + "'";
   connection.query(updateStatus, function(err, result) {
-      if (err) {
-        console.log('[login ERROR] - ', err.message);
-        return;
-      }
-      res.end(JSON.stringify(result));
-    })
-    // res.send('respond with a resource');
-    // console.log(result);
+    if (err) {
+      console.log('[login ERROR] - ', err.message);
+      return;
+    }
+    res.end(JSON.stringify(result));
+  })
 });
 
 router.get('/user/select', (req, res) => {
@@ -62,16 +59,12 @@ router.get('/user/deleat', function(req, res, next) {
     "id": req.query.id,
   };
   let deleat = "DELETE FROM userinfo where id= '" + response.id + "'";
-  // var updateStatus = "select username,password from userlogin where username = '" + response.username + "' and password = '" + response.password + "'";
-  // let modSqlParams = ['Tom', 'tom@qq.com', 7];
   connection.query(deleat, function(err, result) {
-      if (err) {
-        console.log('[login ERROR] - ', err.message);
-        return;
-      }
-      res.end(JSON.stringify(result));
-    })
-    // res.send('respond with a resource');
-    // console.log(result);
+    if (err) {
+      console.log('[login ERROR] - ', err.message);
+      return;
+    }
+    res.end(JSON.stringify(result));
+  })
 });
 module.exports = router;

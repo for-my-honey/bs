@@ -1,16 +1,16 @@
 var express = require('express');
-// var connection = require('./db/connect');
-// var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '918912',
-  database: 'musicsys'
+  database: 'musicsys',
 });
-
 connection.connect()
+
+// var connection = require('./db/connect');
+// var express = require('express');
 router.get('/dashboard/usernum', function(req, res, next) {
   var usernum = "select count(case when age BETWEEN 0 AND 12 THEN 1 END) as one,count(case when age BETWEEN 13 AND 18 THEN 2 END) as two,count(case when age BETWEEN 19 AND 29 THEN 3 END) as three,count(case when age BETWEEN 30 AND 45 THEN 4 END) as four,count(case when age > 45 THEN 3 END) as five FROM userinfo";
   connection.query(usernum, function(err, result) {

@@ -39,9 +39,9 @@ router.get('/login', function(req, res, next) {
         }
         if (result == '') {
           console.log("密码错误");
-          res.end(JSON.stringify('1')); //如果登录失败就给客户端返回0，
+          res.end(JSON.stringify('1')); //如果密码错误就给客户端返回1，
         } else {
-          res.end(JSON.stringify('2')); //成功
+          res.end(JSON.stringify('2')); //成功返回2
         }
       })
     };
